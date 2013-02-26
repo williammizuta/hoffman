@@ -1,0 +1,31 @@
+{
+  "name": "hoffman",
+  "version": "0.0.3",
+  "description": "view engine for dust",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "duster": "0.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:diffsky/hoffman.git"
+  },
+  "author": "Matthew Hadley <matthew.hadley@gmail.com>",
+  "contributors": [
+    "Mike Ridgway (https://github.com/mridgway)"
+  ],
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "keywords": [
+    "dust",
+    "dust.js",
+    "express",
+    "expressjs",
+    "view",
+    "engine"
+  ],
+  "gitHead": "b3e4d8b4c43a4a125987824d538aa740828d1916"
+}
