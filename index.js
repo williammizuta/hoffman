@@ -1,13 +1,31 @@
-var path = require('path')
+var fs = require('fs')
+  , path = require('path')
   , duster = require('duster')
   , dust = duster.dust;
 
+var appOptions;
+
+dust.onLoad = function (template, cb) {
+  // nuke the dust cache if app is set to not use caching
+  if (!appOptions.cache) dust.cache = {};
+
+  // if no extname then handling a partial, figure out the full path
+  if (path.extname(template) == '') {
+    template = path.join(appOptions.settings.views, template) + '.dust';
+  }
+
+  // read the template off disk
+  fs.readFile(template, 'utf8', function(err, data){
+    if (err) return cb(err);
+    cb(err, data);
+  })
+}
+
 module.exports = {
-  __express: function(views) {
-    duster.prime(views);
-    return function(file, options, cb){
-      if (!options.cache) duster.prime(options.settings.views);
-      var template = path.relative(options.settings.views, file).slice(0, -5);
+  __express: function() {
+    return function(template, options, cb){
+      appOptions = options;
+      var template = path.relative(options.settings.views, template).slice(0, -5);
       dust.render(template, options, function(err, output){
         cb(err, output);
       });
@@ -33,6 +51,9 @@ module.exports = {
       }
     };
     next(null, req, res);
+  },
+  prime: function(views) {
+    duster.prime(views);
   },
   dust: duster.dust
 };
