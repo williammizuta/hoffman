@@ -4,6 +4,8 @@ A [dust.js](https://github.com/linkedin/dustjs) view engine for [express](https:
 
 ### Usage
 
+#### Inside app.js
+
 ```
 var hoffman = require('hoffman');
 
@@ -17,6 +19,31 @@ app.set('view cache', true);
 // optionally load all templates into dust cache on server start
 hoffman.prime(app.settings.views);
 ```
+
+#### Rendering
+
+Reference templates by name, without extension.
+
+Inside a route:
+
+    res.render('index', {"planet" : "world"});
+    
+Inside of a template:
+
+    hello {>partial/}
+
+All references are from the root of the views directory. Regardless of where the host template resides.
+
+#### Streaming
+
+Hoffman supports streaming the response, by augmenting the response object via middleware:
+
+    app.use(hoffman.stream);
+    
+You can then call `res.stream` instead of `res.render`. If you pass a callback, you will recieve the stream
+object back to do with what you want, otherwise content will be streamed via `res.write()` as chunks of the
+template are rendered. See the `stream` method code for more details.
+
 
 ### Cache Priming
 
