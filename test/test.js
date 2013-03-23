@@ -78,6 +78,8 @@ describe('Dust streaming', function(){
         })
         .on('error', function(err) {
           console.warn(err);
+          assert.typeOf(err, 'undefined', "forced fail on streaming error");
+          done();
         });
       });
     });
