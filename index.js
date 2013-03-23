@@ -1,19 +1,14 @@
 var fs = require('fs')
   , path = require('path')
   , duster = require('duster')
-  , dust = duster.dust;
-
-var appOptions;
+  , dust = duster.dust
+  , views;
 
 dust.onLoad = function (template, cb) {
-  // nuke the dust cache if app is set to not use caching
-  if (!appOptions.cache) dust.cache = {};
-
   // if no extname then handling a partial, figure out the full path
   if (path.extname(template) == '') {
-    template = path.join(appOptions.settings.views, template) + '.dust';
+    template = path.join(views, template) + '.dust';
   }
-
   // read the template off disk
   fs.readFile(template, 'utf8', function(err, data){
     if (err) return cb(err);
@@ -21,18 +16,27 @@ dust.onLoad = function (template, cb) {
   })
 }
 
+function clearCacheCheck(clear){
+  if (clear === undefined || clear === false) {
+    dust.cache = {};
+  }
+}
+
 module.exports = {
   __express: function() {
     return function(template, options, cb){
-      appOptions = options;
-      var template = path.relative(options.settings.views, template).slice(0, -5);
+      if (!views) views = options.settings.views;
+      template = path.relative(views, template).slice(0, -5);
       dust.render(template, options, function(err, output){
+        if (err) return cb(err);
+        clearCacheCheck(options.settings["view cache"]);
         cb(err, output);
       });
     }
   },
   stream: function(req, res, next) {
     res.stream = function(template, data, cb){
+      if (!views) views = req.app.settings.views;
       var stream = dust.stream(template, data);
       if (cb) {
         cb(stream);
@@ -44,6 +48,7 @@ module.exports = {
         })
         .on('end', function(err) {
           res.end();
+          clearCacheCheck(req.app.settings["view cache"]);
         })
         .on('error', function(err) {
           next(err);

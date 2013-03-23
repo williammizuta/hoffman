@@ -1,6 +1,6 @@
 {
   "name": "hoffman",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "view engine for dust",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,13 @@
   },
   "dependencies": {
     "duster": "0.2.2"
+  },
+  "devDependencies": {
+    "chai": "~0.1.5",
+    "mocha": "~1.8.2"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/test.js --reporter spec"
   },
   "repository": {
     "type": "git",
