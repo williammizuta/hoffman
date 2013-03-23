@@ -2,6 +2,7 @@
 
 A [dust.js](https://github.com/linkedin/dustjs) view engine for [express](https://github.com/visionmedia/express).
 
+
 ```
 var hoffman = require('hoffman');
 
