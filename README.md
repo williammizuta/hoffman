@@ -1,6 +1,6 @@
 # Hoffman [![](https://travis-ci.org/diffsky/hoffman.png)](https://travis-ci.org/diffsky/hoffman)
 
-A dust.js view engine for express.
+A [dust.js](https://github.com/linkedin/dustjs) view engine for [express](https://github.com/visionmedia/express).
 
 ```
 var hoffman = require('hoffman');
