@@ -23,6 +23,6 @@ hoffman.prime(app.settings.views);
 With `view cache` set to `true`, templates will be cached in memory the first time they are read off disk.
 
 With `hoffman.prime(app.settings.views)` all templates inside of the view directory
-will be read into memeory on server start. Meaning no first disk access after the server has started.
+will be read into memeory on server start, meaning no first disk access after the server has started.
 
 ![dustin](https://raw.github.com/wiki/diffsky/hoffman/hoffman.jpg)
