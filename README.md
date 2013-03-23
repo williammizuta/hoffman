@@ -2,9 +2,13 @@
 
 A [dust.js](https://github.com/linkedin/dustjs) view engine for [express](https://github.com/visionmedia/express).
 
-### Usage
+## Usage
 
-#### Inside app.js
+Hoffman is installable via npm
+
+    npm i hoffman
+
+### Inside app.js
 
 ```
 var hoffman = require('hoffman');
@@ -20,7 +24,7 @@ app.set('view cache', true);
 hoffman.prime(app.settings.views);
 ```
 
-#### Rendering
+### Rendering
 
 Reference templates by name, without extension.
 
@@ -34,7 +38,7 @@ Inside of a template:
 
 All references are from the root of the views directory. Regardless of where the host template resides.
 
-#### Streaming
+### Streaming
 
 Hoffman supports streaming the response, by augmenting the response object via middleware:
 
