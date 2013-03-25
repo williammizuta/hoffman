@@ -15,7 +15,7 @@ var views = __dirname + '/templates';
 var templates = {
   "hello" : views + '/hello.dust',
   "main" : views + '/main.dust',
-  "invalid" : ""
+  "invalid" : "missing.dust"
 };
 
 // when a new hoffman instance is required
