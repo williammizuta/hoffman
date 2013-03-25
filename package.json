@@ -1,6 +1,6 @@
 {
   "name": "hoffman",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "view engine for dust",
   "main": "index.js",
   "dependencies": {
@@ -8,10 +8,16 @@
   },
   "devDependencies": {
     "chai": "~0.1.5",
-    "mocha": "~1.8.2"
+    "istanbul": "~0.1.32",
+    "mocha": "~1.8.2",
+    "grunt": "~0.4.0",
+    "grunt-cli": "~0.1.6",
+    "grunt-contrib-jshint": "~0.3.0",
+    "grunt-mocha-test" : "~0.2.0",
+    "grunt-shell" : "~0.2.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/test.js --reporter spec"
+    "test": "node_modules/grunt-cli/bin/grunt test"
   },
   "repository": {
     "type": "git",
