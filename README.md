@@ -31,7 +31,7 @@ Reference templates by name, without extension.
 Inside a route:
 
     res.render('index', {"planet" : "world"});
-    
+
 Inside of a template:
 
     hello {>partial/}
@@ -43,7 +43,7 @@ All references are from the root of the views directory. Regardless of where the
 Hoffman supports streaming the response, by augmenting the response object via middleware:
 
     app.use(hoffman.stream);
-    
+
 You can then call `res.stream` instead of `res.render`. If you pass a callback, you will recieve the stream
 object back to do with what you want, otherwise content will be streamed via `res.write()` as chunks of the
 template are rendered. See the `stream` method code for more details.
@@ -55,5 +55,11 @@ With `view cache` set to `true`, templates will be cached in memory the first ti
 
 With `hoffman.prime(app.settings.views)` all templates inside of the view directory
 will be read into memeory on server start, meaning no first disk access after the server has started.
+
+## Tests
+
+Hoffman comes with unit tests, code coverage reports, and jshint linting, run via:
+
+    grunt test
 
 ![dustin](https://raw.github.com/wiki/diffsky/hoffman/hoffman.jpg)
