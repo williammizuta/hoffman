@@ -1,6 +1,6 @@
 {
   "name": "hoffman",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "view engine for dust",
   "main": "index.js",
   "dependencies": {
