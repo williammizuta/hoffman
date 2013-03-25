@@ -60,6 +60,6 @@ will be read into memeory on server start, meaning no first disk access after th
 
 Hoffman comes with unit tests, code coverage reports, and jshint linting, run via:
 
-    grunt test
+    npm test
 
 ![dustin](https://raw.github.com/wiki/diffsky/hoffman/hoffman.jpg)
