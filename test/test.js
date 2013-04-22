@@ -9,6 +9,16 @@ var options = {
   "planet" : "world"
 };
 
+var req = { "app" : options },
+    res = {
+      "app" : { "locals" : {}},
+      "locals" : {},
+      "write" : function(chunk){
+        assert.equal("hello world", chunk);
+      },
+      "end" : function(){}
+    };
+
 var hoffman = require('../index.js');
 var render = hoffman.__express();
 var views = __dirname + '/templates';
@@ -96,9 +106,8 @@ describe('Dust cache', function(){
 describe('Dust streaming', function(){
   it('should be supported via returning a stream instance', function(done){
     newHoffman();
-    var output = '',
-        req = { "app" : options };
-    hoffman.stream(req, {}, function(err, req, res){
+    var output = '';
+    hoffman.stream(req, res, function(err, req, res){
       res.stream(templates.hello, options, function(stream){
         stream.on('data', function(chunk) {
           output = output + chunk;
@@ -117,13 +126,6 @@ describe('Dust streaming', function(){
   });
 
   it('should be supported via internally streaming to res.write', function(done){
-    var req = { "app" : options },
-        res = {
-      "write" : function(chunk){
-        assert.equal("hello world", chunk);
-      },
-      "end" : function(){}
-    };
     hoffman.stream(req, res, function(err, req, res){
       res.stream(templates.hello, options);
       done();

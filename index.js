@@ -20,6 +20,12 @@ dust.onLoad = function (template, cb) {
   });
 };
 
+function extend(a, b) {
+  for (var x in b) {
+    a[x] = b[x];
+  }
+}
+
 function clearCacheCheck(clear){
   if (clear === undefined || clear === false) {
     dust.cache = {};
@@ -44,10 +50,16 @@ module.exports = {
   },
   stream: function(req, res, next) {
     res.stream = function(template, data, cb){
+      // flatten and add app and res locals data
+      var options = {}, stream;
+      extend(options, res.app.locals);
+      extend(options, res.locals);
+      extend(options, data);
+
       if (!views) {
         views = req.app.settings.views;
       }
-      var stream = dust.stream(template, data);
+      stream = dust.stream(template, options);
       if (cb) {
         cb(stream);
       } else {
