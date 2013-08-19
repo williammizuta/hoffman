@@ -8,7 +8,7 @@ var fs = require('fs'),
 
 dust.onLoad = function (template, cb) {
   // if no extname then handling a partial, figure out the full path
-  if (path.extname(template) === '') {
+  if (path.extname(template) !== '.dust') {
     template = path.join(views, template) + '.dust';
   }
   // read the template off disk
