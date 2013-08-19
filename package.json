@@ -1,10 +1,10 @@
 {
   "name": "hoffman",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "view engine for dust",
   "main": "index.js",
   "dependencies": {
-    "duster": "0.2.2"
+    "duster": "~0.3.2"
   },
   "devDependencies": {
     "chai": "~0.1.5",
