@@ -1,18 +1,18 @@
-"use strict";
+'use strict';
 
-var fs = require('fs'),
-    path = require('path'),
-    duster = require('duster'),
-    dust = duster.dust,
-    views;
+var fs = require('fs');
+var path = require('path');
+var duster = require('duster');
+var dust = duster.dust;
+var views;
 
-dust.onLoad = function (template, cb) {
+dust.onLoad = function(template, cb) {
   // if no extname then handling a partial, figure out the full path
   if (path.extname(template) !== '.dust') {
     template = path.join(views, template) + '.dust';
   }
   // read the template off disk
-  fs.readFile(template, 'utf8', function(err, data){
+  fs.readFile(template, 'utf8', function(err, data) {
     if (err) {
       return cb(err);
     }
@@ -26,7 +26,7 @@ function extend(a, b) {
   }
 }
 
-function clearCacheCheck(clear){
+function clearCacheCheck(clear) {
   if (clear === undefined || clear === false) {
     dust.cache = {};
   }
@@ -34,24 +34,25 @@ function clearCacheCheck(clear){
 
 module.exports = {
   __express: function() {
-    return function(template, options, cb){
+    return function(template, options, cb) {
       if (!views) {
         views = options.settings.views;
       }
       template = path.relative(views, template).slice(0, -5);
-      dust.render(template, options, function(err, output){
+      dust.render(template, options, function(err, output) {
         if (err) {
           return cb(err);
         }
-        clearCacheCheck(options.settings["view cache"]);
+        clearCacheCheck(options.settings['view cache']);
         cb(err, output);
       });
     };
   },
   stream: function(req, res, next) {
-    res.stream = function(template, data, cb){
+    res.stream = function(template, data, cb) {
       // flatten and add app and res locals data
-      var options = {}, stream;
+      var options = {},
+        stream;
       extend(options, res.app.locals);
       extend(options, res.locals);
       extend(options, data);
@@ -68,13 +69,13 @@ module.exports = {
             res.write(chunk);
           }
         })
-        .on('end', function() {
-          res.end();
-          clearCacheCheck(req.app.settings["view cache"]);
-        })
-        .on('error', function(err) {
-          next(err);
-        });
+          .on('end', function() {
+            res.end();
+            clearCacheCheck(req.app.settings['view cache']);
+          })
+          .on('error', function(err) {
+            next(err);
+          });
       }
     };
     next(null, req, res);
