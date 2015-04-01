@@ -4,7 +4,7 @@
   "description": "view engine for dust",
   "main": "index.js",
   "dependencies": {
-    "duster": "~0.3.2",
+    "duster": "~1.0.0",
     "istanbul": "^0.3.2"
   },
   "scripts": {

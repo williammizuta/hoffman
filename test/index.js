@@ -112,9 +112,10 @@ describe('Dust cache', function() {
     });
   });
   it('should be primable with all templates in the view dir', function(done) {
-    hoffman.prime(options.settings.views);
-    assert.lengthOf(Object.keys(hoffman.dust.cache), 3, 'dust.cache contains 3 functions');
-    done();
+    hoffman.prime(options.settings.views, function() {
+      assert.lengthOf(Object.keys(hoffman.dust.cache), 3, 'dust.cache contains 3 functions');
+      done();
+    });
   });
 });
 
