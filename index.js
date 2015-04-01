@@ -80,8 +80,8 @@ module.exports = {
     };
     next(null, req, res);
   },
-  prime: function(views) {
-    duster.prime(views);
+  prime: function(views, cb) {
+    duster.prime(views, cb);
   },
   dust: duster.dust
 };
