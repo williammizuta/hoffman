@@ -21,7 +21,9 @@ app.engine('dust', hoffman.__express());
 app.set('view cache', true);
 
 // optionally load all templates into dust cache on server start
-hoffman.prime(app.settings.views);
+hoffman.prime(app.settings.views, function(err) {
+  // views are loaded
+});
 ```
 
 ### Rendering
