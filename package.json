@@ -4,8 +4,7 @@
   "description": "view engine for dust",
   "main": "index.js",
   "dependencies": {
-    "duster": "~1.1.0",
-    "istanbul": "^0.3.2"
+    "duster": "~1.1.0"
   },
   "scripts": {
     "test": "gulp eslint && gulp beautify && node_modules/istanbul/lib/cli.js cover -- node_modules/mocha/bin/_mocha test/index.js --reporter spec"
@@ -17,6 +16,7 @@
     "gulp-diff": "^0.3.1",
     "gulp-eslint": "^0.1.8",
     "gulp-jsbeautifier": "0.0.3",
+    "istanbul": "^0.3.2",
     "minimist": "^1.1.0"
   },
   "repository": {
