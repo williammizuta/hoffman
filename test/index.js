@@ -31,6 +31,8 @@ var views = path.join(__dirname, 'templates');
 var templates = {
   'hello': views + '/hello.dust',
   'main': views + '/main.dust',
+  'mainWithoutExtension': views + '/main',
+  'main2WithoutExtension': views + '/main2',
   'invalid': 'missing.dust'
 };
 
@@ -75,7 +77,27 @@ describe('Dust templates', function() {
       done();
     });
   });
+  it('should use default dust template extension', function(done) {
+    render(templates.mainWithoutExtension, options, function(err, output) {
+      if (err) {
+        console.log(err);
+      }
+      assert.equal('hello world', output);
+      done();
+    });
+  });
+  it('should modify default dust template extension', function(done) {
+    hoffman.extension('.html');
+    render(templates.main2WithoutExtension, options, function(err, output) {
+      if (err) {
+        console.log(err);
+      }
+      assert.equal('hello world', output);
+      done();
+    });
+  });
   it('should dynamically include partials', function(done) {
+    newHoffman();
     render(templates.main, options, function(err, output) {
       if (err) {
         console.log(err);

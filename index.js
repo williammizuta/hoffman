@@ -5,11 +5,12 @@ var path = require('path');
 var duster = require('duster');
 var dust = duster.dust;
 var views;
+var extname = '.dust';
 
 dust.onLoad = function(template, cb) {
   // if no extname then handling a partial, figure out the full path
-  if (path.extname(template) !== '.dust') {
-    template = path.join(views, template) + '.dust';
+  if (path.extname(template) !== extname) {
+    template = path.join(views, template) + extname;
   }
   // read the template off disk
   fs.readFile(template, 'utf8', function(err, data) {
@@ -38,7 +39,11 @@ module.exports = {
       if (!views) {
         views = options.settings.views;
       }
-      template = path.relative(views, template).slice(0, -5);
+      template = path.relative(views, template);
+      var ext = path.extname(template)
+      if (ext) {
+        template = template.slice(0, ext.length * (-1));
+      }
       dust.render(template, options, function(err, output) {
         if (err) {
           return cb(err);
@@ -83,5 +88,8 @@ module.exports = {
   prime: function(views, cb) {
     duster.prime(views, cb);
   },
-  dust: duster.dust
+  dust: duster.dust,
+  extension: function(extension) {
+    extname = extension;
+  }
 };
