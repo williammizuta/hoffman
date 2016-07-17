@@ -20,6 +20,9 @@ app.engine('dust', hoffman.__express());
 // works with caching
 app.set('view cache', true);
 
+// optionally change dust template extension. The default value is .dust
+hoffman.extension('.html');
+
 // optionally load all templates into dust cache on server start
 hoffman.prime(app.settings.views, function(err) {
   // views are loaded
